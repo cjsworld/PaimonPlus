@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Res\Avatar\**" />
+    <EmbeddedResource Remove="Res\Avatar\**" />
+    <None Remove="Res\Avatar\**" />
+    <Page Remove="Res\Avatar\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Res\Config\AvatarCurveExcelConfigData.json" />
+    <None Remove="Res\Config\AvatarExcelConfigData.json" />
+    <None Remove="Res\Config\AvatarPromoteExcelConfigData.json" />
+    <None Remove="Res\Config\AvatarSkillDepotExcelConfigData.json" />
+    <None Remove="Res\Config\AvatarSkillExcelConfigData.json" />
+    <None Remove="Res\Config\AvatarTalentExcelConfigData.json" />
+    <None Remove="Res\Config\EquipAffixExcelConfigData.json" />
+    <None Remove="Res\Config\ProudSkillExcelConfigData.json" />
+    <None Remove="Res\Config\ReliquaryAffixExcelConfigData.json" />
+    <None Remove="Res\Config\ReliquaryCodexExcelConfigData.json" />
+    <None Remove="Res\Config\ReliquaryExcelConfigData.json" />
+    <None Remove="Res\Config\ReliquaryLevelExcelConfigData.json" />
+    <None Remove="Res\Config\ReliquaryMainPropExcelConfigData.json" />
+    <None Remove="Res\Config\ReliquarySetExcelConfigData.json" />
+    <None Remove="Res\Config\TextMapCHS.json" />
+    <None Remove="Res\Config\WeaponCurveExcelConfigData.json" />
+    <None Remove="Res\Config\WeaponExcelConfigData.json" />
+    <None Remove="Res\Config\WeaponPromoteExcelConfigData.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Res\Config\AvatarCurveExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\AvatarExcelConfigData.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Res\Config\AvatarPromoteExcelConfigData.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Res\Config\AvatarSkillDepotExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\AvatarSkillExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\AvatarTalentExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\EquipAffixExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\ProudSkillExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\ReliquaryAffixExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\ReliquaryCodexExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\ReliquaryExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\ReliquaryLevelExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\ReliquaryMainPropExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\ReliquarySetExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\TextMapCHS.json" />
+    <EmbeddedResource Include="Res\Config\WeaponCurveExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\WeaponExcelConfigData.json" />
+    <EmbeddedResource Include="Res\Config\WeaponPromoteExcelConfigData.json" />
+  </ItemGroup>
+
+</Project>
