@@ -36,17 +36,36 @@ namespace PaimonPlus.Core {
         /// </summary>
         public RelicPanel Relic { get; set; }
 
+        private Dictionary<SkillType, int> SkillLevels { get; set; }
+
         public AvatarInfo(AvatarData data) {
             Data = data;
             Level = 90;
             Promoted = false;
             Constellation = 0;
             Relic = new RelicPanel();
+            SkillLevels = new Dictionary<SkillType, int>();
         }
 
         public void SetLevel(int level, bool promoted) {
             Level = level;
             Promoted = promoted;
+        }
+
+        public int GetSkillLevel(SkillType skillType) {
+            var level = 10;
+            if (SkillLevels.ContainsKey(skillType)) {
+                level = SkillLevels[skillType];
+            }
+            return level;
+        }
+
+        public void SetSkillLevel(SkillType skillType, int level) {
+            SkillLevels[skillType] = level;
+        }
+
+        public ProudSkillData GetSkillProudData(SkillType skillType) {
+            return Data.SkillDepot.GetSkill(skillType).GetProudSkillData(GetSkillLevel(skillType));
         }
 
         /// <summary>
@@ -68,19 +87,6 @@ namespace PaimonPlus.Core {
         public PropPanel GetTotalPanel() {
             var panel = GetBasePanel();
             panel += Relic.GetPanel();
-
-            //TODO
-
-            //冰套2件套
-            panel += PropType.IceAddHurt.By(0.15000000596046448);
-
-            //阿莫斯
-            panel += PropType.AddHurt.By(0.11999999731779099);
-            panel += PropType.AddHurt.By(0.079999998211860657 * 5);
-
-            //大招
-            //panel += PropType.AddHurt.By(0.20);
-
             return panel;
         }
     }

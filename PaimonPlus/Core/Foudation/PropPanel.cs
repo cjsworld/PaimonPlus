@@ -183,7 +183,7 @@ namespace PaimonPlus.Core {
 
         override public string ToString() {
             var sb = new StringBuilder();
-            foreach (PropType t in Enum.GetValues(typeof(PropType))) {
+            foreach (PropType t in PropType.All) {
                 if (Props.ContainsKey(t)) {
                     if (sb.Length > 0) {
                         sb.Append(" | ");

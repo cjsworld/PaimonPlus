@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using XPlugin.Json;
 
 namespace PaimonPlus.Core {
@@ -40,6 +41,7 @@ namespace PaimonPlus.Core {
         public readonly WeaponModule Weapon = new();
         public readonly RelicModule Relic = new();
         public readonly AvatarModule Avatar = new();
+        //public readonly MonsterModule Monster = new();
         private bool Inited = false;
 
         public void Init() {
@@ -58,6 +60,7 @@ namespace PaimonPlus.Core {
             Weapon.Init();
             Relic.Init();
             Avatar.Init();
+            //Monster.Init();
 
             TextMap = null;
             Inited = true;

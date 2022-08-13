@@ -10,6 +10,7 @@ namespace PaimonPlus.Core {
         public static readonly List<SkillType> All = new();
 
         public static readonly SkillType A = new(0, "普通攻击");
+        public static readonly SkillType AZ = new(-1, "重击");
         public static readonly SkillType E = new(1, "元素战技");
         public static readonly SkillType Shift = new(2, "冲刺");
         public static readonly SkillType Q = new(5, "元素爆发");

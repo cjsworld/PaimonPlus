@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using XPlugin.Json;
 
 namespace PaimonPlus.Core {
@@ -19,7 +20,12 @@ namespace PaimonPlus.Core {
         /// <summary>
         /// 星级
         /// </summary>
-        public readonly string QualityType;
+        public readonly int Rank;
+
+        /// <summary>
+        /// 元素类型
+        /// </summary>
+        public ElemType ElemType = ElemType.Physical; // 这个字段在配置文件中还没有找到，只能由代码实现主动赋值
 
         /// <summary>
         /// 基础属性
@@ -41,6 +47,11 @@ namespace PaimonPlus.Core {
         /// </summary>
         public readonly SkillDepotData SkillDepot;
 
+        /// <summary>
+        /// 角色功能实现
+        /// </summary>
+        public AvatarImpl? Impl = null;
+
 
         public AvatarData(JObject data) {
             Id = data["id"].AsInt();
@@ -48,12 +59,20 @@ namespace PaimonPlus.Core {
             Icon = icon.Replace("UI_AvatarIcon_", "");
             Name = CoreEngine.Ins.GetText(data["nameTextMapHash"].AsLong());
             WeaponType = WeaponType.GetByConfigName(data["weaponType"].AsString());
-            QualityType = data["qualityType"].AsString();
+            var quality = data["qualityType"].AsString();
+            if (quality == "QUALITY_PURPLE") {
+                Rank = 4;
+            } else if (quality == "QUALITY_ORANGE" || quality == "QUALITY_ORANGE_SP") {
+                Rank = 5;
+            } else {
+                Trace.WriteLine($"Unknown avatar quality {quality}");
+                Rank = 0;
+            }
             BaseProps = new PropPanel(
                 PropType.BaseHP.By(data["hpBase"].AsDouble()),
                 PropType.BaseATK.By(data["attackBase"].AsDouble()),
                 PropType.BaseDEF.By(data["defenseBase"].AsDouble()),
-                PropType.ChargeRate.By(1),
+                PropType.ChargeRate.By(data["chargeEfficiency"].AsDouble()),
                 PropType.CritRate.By(data["critical"].AsDouble()),
                 PropType.CritHurt.By(data["criticalHurt"].AsDouble())
             );

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -131,15 +132,15 @@ namespace PaimonPlus {
             //IceAddHurt: 61.6%
             Trace.WriteLine("===============");
 
+            var monster = new MonsterInfo();
+            monster.Level = 88;
+            monster.Props += PropType.IceSubHurt.By(0.1);
+            monster.Props += PropType.IceSubHurt.By(-0.15); //TODO 甘雨1命效果
+
             var ctx = new CalcContext() {
                 Avatar = info,
-                SkillElemType = ElemType.Ice,
-                SkillRate = ganyu.SkillDepot.GetSkill(SkillType.A).ProudSkillGroup.Levels[10].Params[9],
-                ReactionRate = 0,
-                MineLevel = 90,
-                DecreaseDEF = 0,
-                TargetLevel = 88,
-                TargetElemResistance = 0.1 - 0.15
+                Monster = monster,
+                SkillOption = ganyu.Impl.GetSkillOptions()[1], //重击二段范围伤害
             };
             var damage = ctx.TotalDamage();
             Trace.WriteLine($"暴击伤害值: {damage}");

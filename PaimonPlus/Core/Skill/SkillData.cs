@@ -31,5 +31,9 @@ namespace PaimonPlus.Core {
                 ProudSkillGroup = CoreEngine.Ins.Skill.ProudSkillGroups[(int)proudSkillGroupId];
             }
         }
+
+        public ProudSkillData GetProudSkillData(int level) {
+            return ProudSkillGroup.Levels[level];
+        }
     }
 }

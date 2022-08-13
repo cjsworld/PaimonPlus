@@ -41,6 +41,11 @@ namespace PaimonPlus.Core {
         /// </summary>
         public readonly AffixSetData Affix;
 
+        /// <summary>
+        /// 武器代码实现
+        /// </summary>
+        public WeaponImpl? Impl = null;
+
         public WeaponData(JObject data) {
             Id = data["id"].AsInt();
             var icon = data["icon"].AsString();
@@ -74,11 +79,10 @@ namespace PaimonPlus.Core {
                 if (id == 0) {
                     continue;
                 }
-                if (Affix == null) {
-                    Affix = CoreEngine.Ins.Affix.Affixs[id];
-                } else {
+                if (Affix != null) {
                     throw new Exception($"Weapon {Id} {Name} has more than one affix!");
                 }
+                Affix = CoreEngine.Ins.Affix.Affixs[id];
             }
         }
 
