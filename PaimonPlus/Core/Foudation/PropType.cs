@@ -1,144 +1,91 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace PaimonPlus.Core {
-	public enum PropType {
-		/** 基础生命值 */
-		BaseHP,
-		/** 生命值百分比 */
-		PercentHP,
-		/** 生命值 */
-		HP,
-		/** 攻击力 */
-		BaseATK,
-		/** 攻击力百分比 */
-		PercentATK,
-		/** 攻击力 */
-		ATK,
-		/** 基础防御力 */
-		BaseDEF,
-		/** 防御力百分比 */
-		PercentDEF,
-		/** 防御力 */
-		DEF,
+    /// <summary>
+    /// 属性数值类型
+    /// </summary>
+    public sealed class PropType {
+        public static readonly List<PropType> All = new();
 
-		/** 元素精通*/
-		ElemMastery,
+        public static readonly PropType BaseHP = new("BaseHP", "基础生命值", "FIGHT_PROP_BASE_HP");
+        public static readonly PropType PercentHP = new("PercentHP", "生命值百分比", "FIGHT_PROP_HP_PERCENT");
+        public static readonly PropType HP = new("HP", "生命值", "FIGHT_PROP_HP");
 
-		/** 暴击率 */
-		CritRate,
-		/** 暴击伤害 */
-		CritHurt,
+        public static readonly PropType BaseATK = new("BaseATK", "攻击力", "FIGHT_PROP_BASE_ATTACK");
+        public static readonly PropType PercentATK = new("PercentATK", "攻击力百分比", "FIGHT_PROP_ATTACK_PERCENT");
+        public static readonly PropType ATK = new("ATK", "攻击力", "FIGHT_PROP_ATTACK");
 
-		/** 元素充能 */
-		ChargeRate,
+        public static readonly PropType BaseDEF = new("BaseDEF", "基础防御力", "FIGHT_PROP_BASE_DEFENSE");
+        public static readonly PropType PercentDEF = new("PercentDEF", "防御力百分比", "FIGHT_PROP_DEFENSE_PERCENT");
+        public static readonly PropType DEF = new("DEF", "防御力", "FIGHT_PROP_DEFENSE");
 
-		/** 伤害加成 */
-		AddHurt,
+        public static readonly PropType ElemMastery = new("ElemMastery", "元素精通", "FIGHT_PROP_ELEMENT_MASTERY");
 
-		/** 火伤加成 */
-		FireAddHurt,
+        public static readonly PropType CritRate = new("CritRate", "暴击率", "FIGHT_PROP_CRITICAL");
+        public static readonly PropType CritHurt = new("CritHurt", "暴击伤害", "FIGHT_PROP_CRITICAL_HURT");
 
-		/** 水伤加成 */
-		WaterAddHurt,
+        public static readonly PropType ChargeRate = new("ChargeRate", "元素充能", "FIGHT_PROP_CHARGE_EFFICIENCY");
 
-		/** 风伤加成 */
-		WindAddHurt,
+        public static readonly PropType AddHurt = new("AddHurt", "伤害加成", "FIGHT_PROP_ADD_HURT");
+        public static readonly PropType FireAddHurt = new("FireAddHurt", "火伤加成", "FIGHT_PROP_FIRE_ADD_HURT");
+        public static readonly PropType WaterAddHurt = new("WaterAddHurt", "水伤加成", "FIGHT_PROP_WATER_ADD_HURT");
+        public static readonly PropType WindAddHurt = new("WindAddHurt", "风伤加成", "FIGHT_PROP_WIND_ADD_HURT");
+        public static readonly PropType ElecAddHurt = new("ElecAddHurt", "雷伤加成", "FIGHT_PROP_ELEC_ADD_HURT");
+        public static readonly PropType GrassAddHurt = new("GrassAddHurt", "草伤加成", "FIGHT_PROP_GRASS_ADD_HURT");
+        public static readonly PropType IceAddHurt = new("IceAddHurt", "冰伤加成", "FIGHT_PROP_ICE_ADD_HURT");
+        public static readonly PropType RockAddHurt = new("RockAddHurt", "岩伤加成", "FIGHT_PROP_ROCK_ADD_HURT");
+        public static readonly PropType PhysicalAddHurt = new("PhysicalAddHurt", "物伤加成", "FIGHT_PROP_PHYSICAL_ADD_HURT");
 
-		/** 雷伤加成 */
-		ElecAddHurt,
 
-		/** 草伤加成 */
-		GrassAddHurt,
+        public static readonly PropType SubHurt = new("AddHurt", "伤害加成", "FIGHT_PROP_SUB_HURT");
+        public static readonly PropType FireSubHurt = new("FireAddHurt", "火伤加成", "FIGHT_PROP_FIRE_SUB_HURT");
+        public static readonly PropType WaterSubHurt = new("WaterAddHurt", "水伤加成", "FIGHT_PROP_WATER_SUB_HURT");
+        public static readonly PropType WindSubHurt = new("WindAddHurt", "风伤加成", "FIGHT_PROP_WIND_SUB_HURT");
+        public static readonly PropType ElecSubHurt = new("ElecAddHurt", "雷伤加成", "FIGHT_PROP_ELEC_SUB_HURT");
+        public static readonly PropType GrassSubHurt = new("GrassAddHurt", "草伤加成", "FIGHT_PROP_GRASS_SUB_HURT");
+        public static readonly PropType IceSubHurt = new("IceAddHurt", "冰伤加成", "FIGHT_PROP_ICE_SUB_HURT");
+        public static readonly PropType RockSubHurt = new("RockAddHurt", "岩伤加成", "FIGHT_PROP_ROCK_SUB_HURT");
+        public static readonly PropType PhysicalSubHurt = new("PhysicalAddHurt", "物伤加成", "FIGHT_PROP_PHYSICAL_SUB_HURT");
 
-		/** 冰伤加成 */
-		IceAddHurt,
+        public static readonly PropType HealAdd = new("HealAdd", "未知", "FIGHT_PROP_HEAL_ADD");
+        public static readonly PropType HealedAdd = new("HealedAdd", "未知", "FIGHT_PROP_HEALED_ADD");
+        public static readonly PropType ShieldUp = new("ShieldUp", "护盾强效", "FIGHT_PROP_SHIELD_COST_MINUS_RATIO");
 
-		/** 岩伤加成 */
-		RockAddHurt,
+        public static readonly PropType Unknown = new("Unknown", "未知", null);
 
-		/** 物伤加成 */
-		PhysicalAddHurt,
+        public readonly string Name;
+        public readonly string Desc;
 
-		Unknown
-	}
+        /// <summary>
+        /// 配置文件中的名字
+        /// </summary>
+        public readonly string? ConfigName;
 
-	public static class PropTypeExt {
-		public static Prop By(this PropType type, double value) {
-			return new Prop(type, value);
-		}
 
-		public static PropType FromConfigName(string configName) {
-			switch (configName) {
-				case "FIGHT_PROP_BASE_HP":
-					return PropType.BaseHP;
-				case "FIGHT_PROP_HP_PERCENT":
-					return PropType.PercentHP;
-				case "FIGHT_PROP_HP":
-					return PropType.HP;
+        public static PropType GetByConfigName(string configName) {
+            var t = All.Find(e => e.ConfigName == configName);
+            if (t == null) {
+                Trace.WriteLine($"Unknown prop type: {configName}");
+                return Unknown;
+            }
+            return t;
+        }
 
-				case "FIGHT_PROP_BASE_ATTACK":
-					return PropType.BaseATK;
-				case "FIGHT_PROP_ATTACK_PERCENT":
-					return PropType.PercentATK;
-				case "FIGHT_PROP_ATTACK":
-					return PropType.ATK;
+        private PropType(string name, string desc, string? configName) {
+            All.Add(this);
+            Name = name;
+            Desc = desc;
+            ConfigName = configName;
+        }
 
-				case "FIGHT_PROP_BASE_DEFENSE":
-					return PropType.BaseDEF;
-				case "FIGHT_PROP_DEFENSE_PERCENT":
-					return PropType.PercentDEF;
-				case "FIGHT_PROP_DEFENSE":
-					return PropType.DEF;
+        public Prop By(double value) {
+            return new Prop(this, value);
+        }
 
-				case "FIGHT_PROP_CRITICAL":
-					return PropType.CritRate;
-				case "FIGHT_PROP_CRITICAL_HURT":
-					return PropType.CritHurt;
-
-				case "FIGHT_PROP_ELEMENT_MASTERY":
-					return PropType.ElemMastery;
-				case "FIGHT_PROP_CHARGE_EFFICIENCY":
-					return PropType.ChargeRate;
-
-				case "FIGHT_PROP_ADD_HURT": //造成伤害提升
-					return PropType.AddHurt;
-				case "FIGHT_PROP_FIRE_ADD_HURT":
-					return PropType.FireAddHurt;
-				case "FIGHT_PROP_WATER_ADD_HURT":
-					return PropType.WaterAddHurt;
-				case "FIGHT_PROP_WIND_ADD_HURT":
-					return PropType.WindAddHurt;
-				case "FIGHT_PROP_ELEC_ADD_HURT":
-					return PropType.ElecAddHurt;
-				case "FIGHT_PROP_GRASS_ADD_HURT":
-					return PropType.GrassAddHurt;
-				case "FIGHT_PROP_ICE_ADD_HURT":
-					return PropType.IceAddHurt;
-				case "FIGHT_PROP_ROCK_ADD_HURT":
-					return PropType.RockAddHurt;
-				case "FIGHT_PROP_PHYSICAL_ADD_HURT":
-					return PropType.PhysicalAddHurt;
-
-				case "FIGHT_PROP_SUB_HURT": //抗性
-				case "FIGHT_PROP_FIRE_SUB_HURT":
-				case "FIGHT_PROP_WATER_SUB_HURT":
-				case "FIGHT_PROP_WIND_SUB_HURT":
-				case "FIGHT_PROP_ELEC_SUB_HURT":
-				case "FIGHT_PROP_ICE_SUB_HURT":
-				case "FIGHT_PROP_GRASS_SUB_HURT":
-				case "FIGHT_PROP_ROCK_SUB_HURT":
-				case "FIGHT_PROP_PHYSICAL_SUB_HURT":
-
-				case "FIGHT_PROP_HEAL_ADD":
-				case "FIGHT_PROP_HEALED_ADD":
-				case "FIGHT_PROP_SHIELD_COST_MINUS_RATIO"://护盾强效
-					return PropType.Unknown;
-				default:
-					Trace.WriteLine($"Unknown prop type: {configName}");
-					return PropType.Unknown;
-			}
-
-		}
-	}
+        public override string ToString() {
+            return Desc;
+        }
+    }
 }

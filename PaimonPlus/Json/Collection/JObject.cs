@@ -2,140 +2,116 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace XPlugin.Json
-{
-	public class JObject : JCollection
-	{
-		protected IDictionary<string, JToken> _dict;
+namespace XPlugin.Json {
+    public class JObject : JCollection {
+        protected IDictionary<string, JToken> _dict;
 
 
-		public static new JObject Parse(string json)
-		{
-			return JToken.Parse(json).AsObject();
-		}
+        public static new JObject Parse(string json) {
+            return JToken.Parse(json).AsObject();
+        }
 
-		public static JObject OptParse(string json)
-		{
-			var ret = JToken.OptParse(json) as JObject;
-			if (ret == null) {
-				ret = new JObject();
-			}
-			return ret;
-		}
+        public static JObject OptParse(string json) {
+            var ret = JToken.OptParse(json) as JObject;
+            if (ret == null) {
+                ret = new JObject();
+            }
+            return ret;
+        }
 
-		public static JObject OptParse(string json, JObject def)
-		{
-			var ret = JToken.OptParse(json) as JObject;
-			if (ret == null) {
-				ret = new JObject();
-			}
-			return def;
-		}
+        public static JObject OptParse(string json, JObject def) {
+            var ret = JToken.OptParse(json) as JObject;
+            if (ret == null) {
+                ret = new JObject();
+            }
+            return def;
+        }
 
-		public static explicit operator JObject(string json)
-		{
-			return Parse(json);
-		}
+        public static explicit operator JObject(string json) {
+            return Parse(json);
+        }
 
-		public JObject()
-			: base(JType.Object)
-		{
-			_dict = new Dictionary<string, JToken>();
-		}
+        public JObject()
+            : base(JType.Object) {
+            _dict = new Dictionary<string, JToken>();
+        }
 
-		public override JToken this[int index]
-		{
-			get
-			{
-				return this[index.ToString()];
-			}
-			set
-			{
-				this[index.ToString()] = value;
-			}
-		}
+        public override JToken this[int index] {
+            get {
+                return this[index.ToString()];
+            }
+            set {
+                this[index.ToString()] = value;
+            }
+        }
 
-		public override JToken this[string name]
-		{
-			get
-			{
-				JToken token;
-				_dict.TryGetValue(name, out token);
-				if (token == null) {
-					token = new JNone(name);
-				}
-				return token;
-			}
-			set
-			{
-				if (value == null) {
-					value = new JNull();
-				}
+        public override JToken this[string name] {
+            get {
+                JToken token;
+                _dict.TryGetValue(name, out token);
+                if (token == null) {
+                    token = new JNone(name);
+                }
+                return token;
+            }
+            set {
+                if (value == null) {
+                    value = new JNull();
+                }
 
-				if (_dict.ContainsKey(name)) {
-					_dict[name] = value;
-				} else {
-					_dict.Add(name, value);
-				}
-				value.Name = name;
-			}
-		}
+                if (_dict.ContainsKey(name)) {
+                    _dict[name] = value;
+                } else {
+                    _dict.Add(name, value);
+                }
+                value.Name = name;
+            }
+        }
 
-		public override int Count
-		{
-			get
-			{
-				return _dict.Count;
-			}
-		}
+        public override int Count {
+            get {
+                return _dict.Count;
+            }
+        }
 
-		public void Add(string name, JToken value)
-		{
-			this[name] = value;
-		}
+        public void Add(string name, JToken value) {
+            this[name] = value;
+        }
 
-		public void Remove(string name)
-		{
-			_dict.Remove(name);
-		}
+        public void Remove(string name) {
+            _dict.Remove(name);
+        }
 
-		public override IEnumerator<JToken> GetEnumerator()
-		{
-			return _dict.Values.GetEnumerator();
-		}
+        public override IEnumerator<JToken> GetEnumerator() {
+            return _dict.Values.GetEnumerator();
+        }
 
-		public IEnumerable<string> Keys
-		{
-			get
-			{
-				return _dict.Keys;
-			}
-		}
+        public IEnumerable<string> Keys {
+            get {
+                return _dict.Keys;
+            }
+        }
 
-		public override JObject AsObject()
-		{
-			return this;
-		}
+        public override JObject AsObject() {
+            return this;
+        }
 
-		public override JObject GetObject()
-		{
-			return this;
-		}
+        public override JObject GetObject() {
+            return this;
+        }
 
-		public override JObject OptObject(JObject def)
-		{
-			return this;
-		}
+        public override JObject OptObject(JObject def) {
+            return this;
+        }
 
-		public override void Write(JsonWriter writer)
-		{
-			writer.WriteObjectStart();
+        public override void Write(JsonWriter writer) {
+            writer.WriteObjectStart();
 
-			foreach (JToken token in this) {
-				writer.WritePropertyName(token.Name);
-				token.Write(writer);
-			}
-			writer.WriteObjectEnd();
-		}
-	}
+            foreach (JToken token in this) {
+                writer.WritePropertyName(token.Name);
+                token.Write(writer);
+            }
+            writer.WriteObjectEnd();
+        }
+    }
 }

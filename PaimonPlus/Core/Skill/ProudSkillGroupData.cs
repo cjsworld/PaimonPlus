@@ -1,24 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using XPlugin.Json;
 
 namespace PaimonPlus.Core {
-	public class ProudSkillGroupData {
-		public readonly int Id;
-		public readonly Dictionary<int, ProudSkillData> Levels = new();
+    /// <summary>
+    /// 角色固有天赋组配置数据
+    /// </summary>
+    public class ProudSkillGroupData {
+        public readonly int Id;
 
-		public ProudSkillGroupData(int id) {
-			Id = id;
-		}
+        /// <summary>
+        /// 各等级下的数据
+        /// </summary>
+        public readonly Dictionary<int, ProudSkillData> Levels = new();
 
-		public void AddSkill(JObject data) {
-			var skill = new ProudSkillData(data);
-			Levels[skill.Level] = skill;
-		}
+        public ProudSkillGroupData(int id) {
+            Id = id;
+        }
 
-		override public string ToString() {
-			return $"ProudSkillGroup{Id}";
-		}
-	}
+        public void AddSkill(JObject data) {
+            var skill = new ProudSkillData(data);
+            Levels[skill.Level] = skill;
+        }
+
+        override public string ToString() {
+            return $"ProudSkillGroup{Id}";
+        }
+    }
 }

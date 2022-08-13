@@ -1,5 +1,5 @@
-##Json解析库
-####类结构
+## Json解析库
+#### 类结构
 ```
 JToken： Json结构的基类，表示一个Json节点
 ┣ JCollection： 表示集合
@@ -16,7 +16,7 @@ JToken： Json结构的基类，表示一个Json节点
   ┗ JString： 字符串
 ```
 ---
-####构造
+#### 构造
 ```cs
 JObject root = new JObject();
 root["I"] = 1;
@@ -34,7 +34,7 @@ sub["Name"] = "This is me!";
 root["Child"] = sub;
 ```
 ---
-####序列化
+#### 序列化
 ```cs
 JToken target;//待序列化的对象，一般为JObject或JArray
 string json = target.ToString();//转化成Json字符串
@@ -43,7 +43,7 @@ string formatJson = target.ToFormatString();//转化成可读的Json字符串
 string jsonStr = JsonMapper.ToJson(item);//反射序列化对象，出于效率、兼容、稳定等考虑，不建议使用
 ```
 ---
-####反序列化
+#### 反序列化
 ```cs
 JObject jobj1 = JObject.Parse(jsonStr);//反序列化Json对象，格式有误会抛异常
 JObject jobj2 = JObject.OptParse(jsonStr);//反序列化Json对象，格式有误会返回一个新创建的空JObject
@@ -54,7 +54,7 @@ JArray jarr2 = JArray.OptParse(jsonStr);//反序列化Json数组，格式有误�
 TargetClass target = JsonMapper.ToObject<TargetClass>(jsonStr);//反射方式反序列化对象，出于效率、兼容、稳定等考虑，不建议使用
 ```
 ---
-####使用
+#### 使用
 
 * **对子元素的访问**
 	1. 可使用下标运算符访问子元素，`JObject`使用字符串访问，`JArray`使用整数访问，其他类型会抛异常。
@@ -77,7 +77,7 @@ TargetClass target = JsonMapper.ToObject<TargetClass>(jsonStr);//反射方式反
   对于`JObject`和`JArray`，都可以使用`foreach`遍历，对于`JArray`，还可以使用`Count`和下标进行遍历。
 
 ---
-####使用实例
+#### 使用实例
 
 例如有如下Json：
 ```

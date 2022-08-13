@@ -9,10 +9,8 @@
 #endregion
 
 
-namespace XPlugin.Json
-{
-    internal enum ParserToken
-    {
+namespace XPlugin.Json {
+    internal enum ParserToken {
         // Lexer tokens (see section A.1.1. of the manual)
         None = System.Char.MaxValue + 1,
         Number,
