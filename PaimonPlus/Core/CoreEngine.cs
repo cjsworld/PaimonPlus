@@ -40,7 +40,7 @@ namespace PaimonPlus.Core {
         public readonly SkillModule Skill = new();
         public readonly WeaponModule Weapon = new();
         public readonly RelicModule Relic = new();
-        public readonly AvatarModule Avatar = new();
+        public AvatarModule Avatar { get; private set; } = new();
         //public readonly MonsterModule Monster = new();
         private bool Inited = false;
 

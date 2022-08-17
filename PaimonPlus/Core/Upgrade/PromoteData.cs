@@ -13,6 +13,11 @@ namespace PaimonPlus.Core {
         public readonly int Id;
 
         /// <summary>
+        /// 人物突破材料id
+        /// </summary>
+        public int? AvatarMatId { get; private set; }
+
+        /// <summary>
         /// 突破等级数据
         /// </summary>
         public readonly List<PromoteLevelData> Levels = new();
@@ -24,6 +29,9 @@ namespace PaimonPlus.Core {
         public void AddLevel(JObject data) {
             var level = new PromoteLevelData(data);
             Levels.Add(level);
+            if (data["avatarPromoteId"].IsNumber && level.PromoteLevel == 1) {
+                AvatarMatId = data["costItems"].AsArray()[0].AsObject()["id"].GetInt();
+            }
         }
 
         /// <summary>

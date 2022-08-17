@@ -4,10 +4,47 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaimonPlus"
-        mc:Ignorable="d"
+		xmlns:core="clr-namespace:PaimonPlus.Core"
+		xmlns:ui="clr-namespace:PaimonPlus.UI"
+		mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-	<Grid>
-		<Button Content="Button" HorizontalAlignment="Left" Margin="309,169,0,0" VerticalAlignment="Top" Height="115" Width="216" Click="Button_Click"/>
-
-	</Grid>
+	<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+		<Button Content="测试" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Click="Button_Click"/>
+		<StackPanel Orientation="Horizontal" DataContext="{Binding Path=AvatarInfo}">
+			<Label>角色：</Label>
+			<ComboBox 
+				Width="200" Height="30"
+				ItemsSource="{Binding Source={x:Static core:CoreEngine.Ins}, Path=Avatar.SortedAvatars}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="{Binding ElemType}"></TextBlock>
+							<TextBlock Text=" - "></TextBlock>
+							<TextBlock Text="{Binding Rank}"></TextBlock>
+							<TextBlock Text="★ "></TextBlock>
+							<TextBlock Text="{Binding Name}"></TextBlock>
+						</StackPanel>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+			<Label>等级：</Label>
+			<TextBox Width="50" Text="{Binding Path=Level}"></TextBox>
+			<Label>命座：</Label>
+			<ComboBox Width="50">
+				<ComboBoxItem>0</ComboBoxItem>
+				<ComboBoxItem>1</ComboBoxItem>
+				<ComboBoxItem>2</ComboBoxItem>
+				<ComboBoxItem>3</ComboBoxItem>
+				<ComboBoxItem>4</ComboBoxItem>
+				<ComboBoxItem>5</ComboBoxItem>
+				<ComboBoxItem>6</ComboBoxItem>
+			</ComboBox>
+			<Label>天赋1：</Label>
+			<TextBox Width="50"></TextBox>
+			<Label>天赋2：</Label>
+			<TextBox Width="50"></TextBox>
+			<Label>天赋3：</Label>
+			<TextBox Width="50"></TextBox>
+		</StackPanel>
+	</StackPanel>
 </Window>

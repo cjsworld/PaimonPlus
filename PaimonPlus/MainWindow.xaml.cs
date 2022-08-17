@@ -1,10 +1,13 @@
 ﻿using PaimonPlus.Core;
+using PaimonPlus.UI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,13 +25,25 @@ namespace PaimonPlus {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow : Window, INotifyPropertyChanged {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+
+        protected void OnPropertyChanged([CallerMemberName] string? name = null) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private AvatarInfoVO? avatarInfo;
+        public AvatarInfoVO? AvatarInfo { get => avatarInfo; set { avatarInfo = value; OnPropertyChanged(); } }
+
         public MainWindow() {
+            CoreEngine.Ins.Init();
+            AvatarInfo = new();
             InitializeComponent();
         }
 
+
         private void Button_Click(object sender, RoutedEventArgs e) {
-            CoreEngine.Ins.Init();
             TestGanyu();
         }
 
@@ -134,13 +149,13 @@ namespace PaimonPlus {
 
             var monster = new MonsterInfo();
             monster.Level = 88;
-            monster.Props += PropType.IceSubHurt.By(0.1);
-            monster.Props += PropType.IceSubHurt.By(-0.15); //TODO 甘雨1命效果
+            monster.Props += PropType.IceSubHurt.By(0.10000000149011612);
+            //monster.Props += PropType.IceSubHurt.By(-0.15); //TODO 甘雨1命效果
 
             var ctx = new CalcContext() {
                 Avatar = info,
                 Monster = monster,
-                SkillOption = ganyu.Impl.GetSkillOptions()[1], //重击二段范围伤害
+                SkillOption = ganyu.Impl.GetSkillOptions()[0], //重击二段范围伤害
             };
             var damage = ctx.TotalDamage();
             Trace.WriteLine($"暴击伤害值: {damage}");

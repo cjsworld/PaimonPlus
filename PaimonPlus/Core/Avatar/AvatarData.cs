@@ -8,49 +8,49 @@ namespace PaimonPlus.Core {
     /// 角色配置数据
     /// </summary>
     public class AvatarData {
-        public readonly int Id;
-        public readonly string Icon;
-        public readonly string Name;
+        public int Id { get; private set; }
+        public string Icon { get; private set; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// 武器类型
         /// </summary>
-        public readonly WeaponType WeaponType;
+        public WeaponType WeaponType { get; private set; }
 
         /// <summary>
         /// 星级
         /// </summary>
-        public readonly int Rank;
+        public int Rank { get; private set; }
 
         /// <summary>
         /// 元素类型
         /// </summary>
-        public ElemType ElemType = ElemType.Physical; // 这个字段在配置文件中还没有找到，只能由代码实现主动赋值
+        public ElemType ElemType { get; set; }
 
         /// <summary>
         /// 基础属性
         /// </summary>
-        public readonly PropPanel BaseProps;
+        public PropPanel BaseProps { get; private set; }
 
         /// <summary>
         /// 等级成长曲线
         /// </summary>
-        public readonly Dictionary<PropType, CurveData> Curves;
+        public Dictionary<PropType, CurveData> Curves { get; private set; }
 
         /// <summary>
         /// 突破配置
         /// </summary>
-        public readonly PromoteData Promote;
+        public PromoteData Promote { get; private set; }
 
         /// <summary>
         /// 技能配置
         /// </summary>
-        public readonly SkillDepotData SkillDepot;
+        public SkillDepotData SkillDepot { get; private set; }
 
         /// <summary>
         /// 角色功能实现
         /// </summary>
-        public AvatarImpl? Impl = null;
+        public AvatarImpl? Impl { get; internal set; }
 
 
         public AvatarData(JObject data) {
@@ -88,6 +88,8 @@ namespace PaimonPlus.Core {
 
             var promoteId = data["avatarPromoteId"].AsInt();
             Promote = CoreEngine.Ins.Upgrade.Promotes[promoteId];
+
+            ElemType = ElemType.GetByMatId(Promote.AvatarMatId);
 
             var depotId = data["skillDepotId"].AsInt();
             SkillDepot = CoreEngine.Ins.Skill.SkillDepots[depotId];

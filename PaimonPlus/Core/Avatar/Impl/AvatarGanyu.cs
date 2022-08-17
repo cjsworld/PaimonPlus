@@ -5,12 +5,8 @@ namespace PaimonPlus.Core.Avatar.Impl {
     /// <summary>
     /// 甘雨
     /// </summary>
-    public class Ganyu : AvatarImpl {
+    public class AvatarGanyu : AvatarImpl {
         public override int AvatarId => 10000037;
-        public override ElemType ElemType => ElemType.Ice;
-
-        public Ganyu() {
-        }
 
         public override List<SkillOption> GetSkillOptions() {
             return new List<SkillOption>() {
@@ -20,14 +16,14 @@ namespace PaimonPlus.Core.Avatar.Impl {
         }
 
         public class GanyuSkillA1 : SkillOption {
-            private Ganyu Ganyu;
-            public GanyuSkillA1(Ganyu ganyu) {
+            private AvatarGanyu Ganyu;
+            public GanyuSkillA1(AvatarGanyu ganyu) {
                 Ganyu = ganyu;
             }
 
             public override string Name => "重击-蓄力第二段";
 
-            public override ElemType SkillElemType => Ganyu.ElemType;
+            public override ElemType SkillElemType => ElemType.Ice;
 
 
             public override void Prepare(CalcContext ctx) {
@@ -43,14 +39,14 @@ namespace PaimonPlus.Core.Avatar.Impl {
         }
 
         public class GanyuSkillA2 : SkillOption {
-            private Ganyu Ganyu;
-            public GanyuSkillA2(Ganyu ganyu) {
+            private AvatarGanyu Ganyu;
+            public GanyuSkillA2(AvatarGanyu ganyu) {
                 Ganyu = ganyu;
             }
 
             public override string Name => "重击-蓄力范围伤害";
 
-            public override ElemType SkillElemType => Ganyu.ElemType;
+            public override ElemType SkillElemType => ElemType.Ice;
 
             public override void Prepare(CalcContext ctx) {
                 ctx.SkillType = SkillType.AZ;
